@@ -21,7 +21,7 @@ public class ClosedHashMap{
 
 //    public void deleteFromLinkedList(long phone){}
 
-    private boolean isListEmpty(){
+    public boolean isListEmpty(){
         if(this.list == null) return true;
         return false;
     }

@@ -14,4 +14,21 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/HashSlot.java</name>
+			<type>1</type>
+			<location>/Users/user/Downloads/CZ2001 Lab 2/src/HashSlot.java</location>
+		</link>
+		<link>
+			<name>src/OpenHashMap.java</name>
+			<type>1</type>
+			<location>/Users/user/Downloads/CZ2001 Lab 2/src/OpenHashMap.java</location>
+		</link>
+		<link>
+			<name>src/OpenHashTable.java</name>
+			<type>1</type>
+			<location>/Users/user/Downloads/CZ2001 Lab 2/src/OpenHashTable.java</location>
+		</link>
+	</linkedResources>
 </projectDescription>

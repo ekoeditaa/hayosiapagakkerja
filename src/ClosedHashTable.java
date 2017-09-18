@@ -2,6 +2,7 @@ import java.util.*;
 public class ClosedHashTable{
     private ArrayList<ClosedHashMap> row = new ArrayList<ClosedHashMap>();
     private int size;
+    
     public ClosedHashTable(int size){
     		this.size = size;
     		for(int i = 0; i<size; i++) {

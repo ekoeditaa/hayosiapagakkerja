@@ -8,50 +8,82 @@ public class Main{
 	private final static String SUCCESSFUL_SEARCH = "SUCCESSFUL SEARCH";
 	private final static String UNSUCCESSFUL_SEARCH = "UNSUCCESSFUL SEARCH";
 	public static void main (String[]args){
-		ClosedHashTable closed = new ClosedHashTable(199);
 		getFile();
+		
+		test1(0.1);
+		test1(0.25);
+		test1(0.5);
+		test1(0.75);
+//		test1(1);
+//		test1(1.50);
+//		test1(1.75);
+//		test1(2.00);
+	}
 
-		//Closed Hash Table Populate Data
+	public static void test1(double loadFactor) {
+		int size = (int)(199/loadFactor);
+		ClosedHashTable closed = new ClosedHashTable(size);
+		OpenHashTable open = new OpenHashTable(size);
+		//Closed and Open Hash Table Populate Data
 		for(int i = 0; i < arrayData.length()-1; i++) {
 			String name = arrayData.getJSONObject(i).getString("name");
 			long phone = arrayData.getJSONObject(i).getLong("telp");
 			closed.add(name, phone);
-			System.out.println("Adding : " + name + " " + phone);
+			open.insertData(name, (int)phone);
+//			System.out.println("Adding : " + name + " " + phone);
 		}
-		
-		testSearch(closed, 10);
-		testSearch(closed, 20);
-		testSearch(closed, 30);
-		testSearch(closed, 40);
-		testSearch(closed, 50);
-		testSearch(closed, 60);
-		testSearch(closed, 70);
-		testSearch(closed, 80);
-		testSearch(closed, 90);
-		testSearch(closed, 100);
-		testSearch(closed, 110);
-		testSearch(closed, 120);
-		testSearch(closed, 130);
-		testSearch(closed, 140);
-		testSearch(closed, 150);
+		System.out.println("Open");
+		testSearch(closed, size, 10);
+		testSearch(closed, size, 20);
+		testSearch(closed, size, 50);
+		testSearch(closed, size, 100);
+		testSearch(closed, size, 150);
+		System.out.println("Closed");
+		testSearchOpen(open, size, 10);
+		testSearchOpen(open, size, 20);
+		testSearchOpen(open, size, 50);
+		testSearchOpen(open, size, 100);
+		testSearchOpen(open, size, 150);
 	}
 
-	public static void testSearch(ClosedHashTable closed, int n) {
+	public static void testSearch(ClosedHashTable closed, int size, int search) {
 		//Closed Hash Table successful search
 		startTime();
-		for(int i = 0; i < arrayData.length()-1; i += (int)(199/n)) {
+		for(int i = 0; i < arrayData.length()-1; i += 1) {
+			if(i == search) break;
 			long phone = arrayData.getJSONObject(i).getLong("telp");
 			closed.search(phone);
 		}
-		endTime(n, SUCCESSFUL_SEARCH);
+		endTime(size, search, SUCCESSFUL_SEARCH);
 
 		//Closed Hash Table unsuccessful search
 		startTime();
-		for(int i = 0; i < arrayData.length()-1; i += (int)(199/n)) {
+		for(int i = 0; i < arrayData.length()-1; i += (int)(size/search)) {
+			if(i == search) break;
 			long phone = arrayData.getJSONObject(i).getLong("telp")+5120;
 			closed.search(phone);
 		}
-		endTime(n, UNSUCCESSFUL_SEARCH);
+		endTime(size, search, UNSUCCESSFUL_SEARCH);
+	}
+	
+	public static void testSearchOpen(OpenHashTable open, int size, int search) {
+		//Open Hash Table successful search
+		startTime();
+		for(int i = 0; i < arrayData.length()-1; i += 1) {
+			if(i == search) break;
+			long phone = arrayData.getJSONObject(i).getLong("telp");
+			open.searchName((int)phone);
+		}
+		endTime(size, search, SUCCESSFUL_SEARCH);
+
+		//Open Hash Table unsuccessful search
+		startTime();
+		for(int i = 0; i < arrayData.length()-1; i += (int)(size/search)) {
+			if(i == search) break;
+			long phone = arrayData.getJSONObject(i).getLong("telp")+5120;
+			open.searchName((int)phone);
+		}
+		endTime(size, search, UNSUCCESSFUL_SEARCH);
 	}
 
 	public static void getFile() {
@@ -77,9 +109,9 @@ public class Main{
 	public static void startTime() {
 		start = System.nanoTime();
 	}
-	public static void endTime(int n, String SuccessType){
+	public static void endTime(int m, int search, String SuccessType){
 		time = System.nanoTime() - start;
-		double loadFactor = n/199.00;
-		System.out.printf("%d " + SuccessType +" search, with load factors %.2f, took an average of %,d ns in total of %,d ns%n", n, loadFactor, time/n, time);
+		System.out.printf("%d in %d table size with 199 sample " + SuccessType +" search, with load factors %.2f, took an average of %,d ns in total of %,d ns%n", 
+				search, m, 199/(m+0.00), time/search, time);
 	}
 }
