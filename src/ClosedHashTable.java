@@ -28,7 +28,7 @@ public class ClosedHashTable{
         int hashValue = hashFunction(phone);
         ClosedHashMap map = row.get(hashValue);
         String print = map.search(phone) == null ? "Not Found" : map.search(phone);
-        System.out.println("Search Result: " + print);
+//        System.out.println("Search Result: " + print);
     }
 
     private int hashFunction(long phone){
