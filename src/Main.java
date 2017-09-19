@@ -1,23 +1,24 @@
 import org.json.*;
 import java.io.*;
+import java.util.*;
 public class Main{
 	static long start;
 	static long time;
 	static JSONArray arrayData;
-
+	static Random random = new Random();
 	private final static String SUCCESSFUL_SEARCH = "SUCCESSFUL SEARCH";
 	private final static String UNSUCCESSFUL_SEARCH = "UNSUCCESSFUL SEARCH";
 	public static void main (String[]args){
 		getFile();
 		
-		test1(0.1);
-		test1(0.25);
-		test1(0.5);
-		test1(0.75);
-//		test1(1);
-//		test1(1.50);
-//		test1(1.75);
-//		test1(2.00);
+//		test1(0.1);
+//		test1(0.25);
+//		test1(0.5);
+//		test1(0.75);
+		test1(1);
+		test1(1.50);
+		test1(1.75);
+		test1(2.00);
 	}
 
 	public static void test1(double loadFactor) {
@@ -32,58 +33,67 @@ public class Main{
 			open.insertData(name, (int)phone);
 //			System.out.println("Adding : " + name + " " + phone);
 		}
-//		System.out.println("---------------------------------------------------------------------------");
-//		System.out.println("Closed");
-//		testSearch(closed, size, 150);
+		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("Closed");
+//		testSearch(closed, size, 1000);
+//		testSearch(closed, size, 10000);
+//		testSearch(closed, size, 100000);
+		testSearch(closed, size, 1000000);
 		System.out.println("---------------------------------------------------------------------------");
 		System.out.println("Open");
-		testSearchOpen(open, size, 150);
+//		testSearchOpen(open, size, 1000);
+//		testSearchOpen(open, size, 10000);
+//		testSearchOpen(open, size, 100000);
+//		testSearchOpen(open, size, 1000000);
 	}
 
 	public static void testSearch(ClosedHashTable closed, int size, int search) {
 		//Closed Hash Table successful search
 		startTime();
-		for(int i = 0; i < arrayData.length()-1; i += 1) {
-			if(i == search) break;
-			long phone = arrayData.getJSONObject(i).getLong("telp");
+		int i = 0;
+		for(int a = 0; a <= search; a++) {
+			i += (int)random.nextInt(99) << 2;
+			long phone = arrayData.getJSONObject(i%199).getLong("telp");
 			closed.search(phone);
 		}
 		endTime(size, search, SUCCESSFUL_SEARCH);
-		System.out.println("Average successful number of key comparisons: "  + closed.getCounter()/150);
+		System.out.println("Average successful number of key comparisons: "  + closed.getCounter()/search);
 		closed.resetCounter();
 
 		//Closed Hash Table unsuccessful search
 		startTime();
-		for(int i = 0; i < arrayData.length()-1; i += 1) {
-			if(i == search) break;
-			long phone = arrayData.getJSONObject(i).getLong("telp")+5120;
+		for(int a = 0; a <= search; a++) {
+			i += (int)random.nextInt(99) << 2;
+			long phone = arrayData.getJSONObject(i%199).getLong("telp")/10;
 			closed.search(phone);
 		}
 		endTime(size, search, UNSUCCESSFUL_SEARCH);
-		System.out.println("Average unsuccessful number of key comparisons: "  + closed.getCounter()/150);
+		System.out.println("Average unsuccessful number of key comparisons: "  + closed.getCounter()/search);
 		closed.resetCounter();
 	}
 	
 	public static void testSearchOpen(OpenHashTable open, int size, int search) {
 		//Open Hash Table successful search
 		startTime();
-		for(int i = 0; i < arrayData.length()-1; i += 1) {
-			if(i == search) break;
-			long phone = arrayData.getJSONObject(i).getLong("telp");
+		int i = 0;
+		for(int a = 0; a <= search; a++) {
+			i += (int)random.nextInt(99) << 2;
+			long phone = arrayData.getJSONObject(i%199).getLong("telp");
 			open.searchName((int)phone);
 		}
 		endTime(size, search, SUCCESSFUL_SEARCH);
-		System.out.println("Average successful number of key comparisons: "  + open.counter/150);
+		System.out.println("Average successful number of key comparisons: "  + open.counter/search);
 		open.resetCounter();
+
 		//Open Hash Table unsuccessful search
 		startTime();
-		for(int i = 0; i < arrayData.length()-1; i += 1) {
-			if(i == search) break;
-			long phone = arrayData.getJSONObject(i).getLong("telp")+5120;
+		for(int a = 0; a <= search; a++) {
+			i += (int)random.nextInt(99) << 2;
+			long phone = arrayData.getJSONObject(i%199).getLong("telp")/10;
 			open.searchName((int)phone);
 		}
 		endTime(size, search, UNSUCCESSFUL_SEARCH);
-		System.out.println("Average unsuccessful number of key comparisons: "  + open.counter/150);
+		System.out.println("Average unsuccessful number of key comparisons: "  + open.counter/search);
 		open.resetCounter();
 	}
 
