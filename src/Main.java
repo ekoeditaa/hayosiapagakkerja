@@ -10,14 +10,14 @@ public class Main{
 	public static void main (String[]args){
 		getFile();
 		
-//		test1(0.1);
-//		test1(0.25);
-//		test1(0.5);
-//		test1(0.75);
-		test1(1);
-		test1(1.50);
-		test1(1.75);
-		test1(2.00);
+		test1(0.1);
+		test1(0.25);
+		test1(0.5);
+		test1(0.75);
+//		test1(1);
+//		test1(1.50);
+//		test1(1.75);
+//		test1(2.00);
 	}
 
 	public static void test1(double loadFactor) {
@@ -32,12 +32,12 @@ public class Main{
 			open.insertData(name, (int)phone);
 //			System.out.println("Adding : " + name + " " + phone);
 		}
-		System.out.println("---------------------------------------------------------------------------");
-		System.out.println("Closed");
-		testSearch(closed, size, 150);
 //		System.out.println("---------------------------------------------------------------------------");
-//		System.out.println("Open");
-//		testSearchOpen(open, size, 150);
+//		System.out.println("Closed");
+//		testSearch(closed, size, 150);
+		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("Open");
+		testSearchOpen(open, size, 150);
 	}
 
 	public static void testSearch(ClosedHashTable closed, int size, int search) {

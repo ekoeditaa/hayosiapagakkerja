@@ -23,9 +23,12 @@ public class OpenHashTable {
 	public String searchName(int num) {
 		int temp, i;
 		temp = hashNum(num);
-		for(i = 0;i < TABLE_SIZE; i++, counter++) {
+		for(i = 0;i < TABLE_SIZE; i++) {
+			counter++;
 			if(slot[(temp + i)%TABLE_SIZE].getNum() == num) {
 				return slot[(temp + i)%TABLE_SIZE].getName();
+			} else if (slot[(temp + i)%TABLE_SIZE].checkEmpty()) {
+				break;
 			}
 		}
 		return "Not Found";
