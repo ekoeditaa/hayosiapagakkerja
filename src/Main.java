@@ -73,7 +73,7 @@ public class Main{
 			open.searchName((int)phone);
 		}
 		endTime(size, search, SUCCESSFUL_SEARCH);
-		System.out.println("Average sucessful number of key comparisons: "  + open.counter/150);
+		System.out.println("Average successful number of key comparisons: "  + open.counter/150);
 		open.resetCounter();
 		//Open Hash Table unsuccessful search
 		startTime();
@@ -83,7 +83,7 @@ public class Main{
 			open.searchName((int)phone);
 		}
 		endTime(size, search, UNSUCCESSFUL_SEARCH);
-		System.out.println("Average unsuccesful number of key comparisons: "  + open.counter/150);
+		System.out.println("Average unsuccessful number of key comparisons: "  + open.counter/150);
 		open.resetCounter();
 	}
 
